@@ -7,4 +7,3 @@ repos:
       - id: check-xml
       - id: end-of-file-fixer
       - id: trailing-whitespace
-      - id: pretty-format-json
