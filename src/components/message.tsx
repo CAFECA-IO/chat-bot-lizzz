@@ -4,11 +4,14 @@ export interface IMessageProps {
 }
 
 export const Message = ({ message }: IMessageProps) => {
-  const color = message.sender === "user" ? "text-right" : "text-left";
+  const color = message.sender === "user" ? "self-end" : "self-start";
 
   return (
-    <div>
-      <div className={color}>{message.content}</div>
+    <div className="flex flex-col">
+      <div className={`${color}	border rounded-lg	 w-fit px-2 py-1	`}>
+        {message.content}
+      </div>
+      {/* <div className={color}>{message.content}</div> */}
     </div>
   );
 };
