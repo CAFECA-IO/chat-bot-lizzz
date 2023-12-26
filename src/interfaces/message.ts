@@ -1,0 +1,6 @@
+export interface IMessage {
+  id: number;
+  content: string;
+  sender: string;
+  createdTime: number;
+}
