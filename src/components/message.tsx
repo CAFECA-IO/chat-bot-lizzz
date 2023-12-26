@@ -4,7 +4,7 @@ export interface IMessageProps {
 }
 
 export const Message = ({ message }: IMessageProps) => {
-  const color = message.sender === "user" ? "text-red-600" : "text-blue-600";
+  const color = message.sender === "user" ? "text-right" : "text-left";
 
   return (
     <div>
