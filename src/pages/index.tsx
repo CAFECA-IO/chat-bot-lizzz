@@ -35,12 +35,11 @@ const Homepage = () => {
     });
     setMessages(dummyMessages);
     setUserInput("");
-    console.log({ messages });
   };
 
   return (
     <main className="flex min-h-screen items-center justify-center border-2 p-10">
-      <div className="w-full border-2">
+      <div className="w-full max-w-screen-xl border-2	">
         Container
         <div className="border-2">
           Message Box
@@ -50,7 +49,7 @@ const Homepage = () => {
             ))}
           </div>
         </div>
-        <div className="flex border-2 ">
+        <div className="flex border-2">
           {/* Input Box */}
           <div className="border-2">
             <input

@@ -8,7 +8,7 @@ export const Message = ({ message }: IMessageProps) => {
 
   return (
     <div className="flex flex-col">
-      <div className={`${color}	border rounded-lg	 w-fit px-2 py-1	`}>
+      <div className={`${color}	w-fit rounded-lg	 border px-2 py-1	`}>
         {message.content}
       </div>
       {/* <div className={color}>{message.content}</div> */}
