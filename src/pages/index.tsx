@@ -1,4 +1,5 @@
-import {Message} from '../components/message';
+import Message from '../components/message';
+import Button from '../components/button';
 import {useState} from 'react';
 
 const dummyMessages = [
@@ -39,28 +40,35 @@ const Homepage = () => {
 
   return (
     <main className="flex min-h-screen items-center justify-center border-2 border-red-600">
+      {/* Container */}
       <div className="w-full max-w-screen-sm border-2	">
-        Container
+        <div className="flex items-end	">
+          <h1 className="mr-2 text-2xl">ChatBot</h1>
+          <p>Talk to AI chatbot about anything</p>
+        </div>
+
+        {/* Message Box */}
         <div className="border-2">
-          Message Box
           <div className="flex flex-col border-2 p-2">
             {messages.map(message => (
               <Message key={message.id} message={message} />
             ))}
           </div>
         </div>
-        <div className="flex border-2">
-          {/* Input Box */}
-          <div className="border-2">
+
+        {/* Input Box */}
+        <div className="flex border-2	">
+          <div className="w-5/6">
             <input
+              className="w-full"
               type="text"
               value={userInput}
               placeholder="Say something..."
               onChange={handleTextInput}
             />
           </div>
-          <div>
-            <button onClick={handleSendMessage}>Send</button>
+          <div className="w-1/6 text-center	">
+            <Button onClick={handleSendMessage}>Send</Button>
           </div>
         </div>
       </div>
