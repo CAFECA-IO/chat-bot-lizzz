@@ -1,24 +1,24 @@
-import { Message } from "../components/message";
-import { useState } from "react";
+import {Message} from '../components/message';
+import {useState} from 'react';
 
 const dummyMessages = [
   {
     id: 100,
-    content: "Hello, I am a chat bot. My name is Lizzz.",
-    sender: "lizzz",
+    content: 'Hello, I am a chat bot. My name is Lizzz.',
+    sender: 'lizzz',
     createdTime: 723648168742,
   },
-  { id: 101, content: "Hello", sender: "user", createdTime: 723648168743 },
+  {id: 101, content: 'Hello', sender: 'user', createdTime: 723648168743},
   {
     id: 102,
-    content: "Hello, how are you?",
-    sender: "lizzz",
+    content: 'Hello, how are you?',
+    sender: 'lizzz',
     createdTime: 723648168744,
   },
 ];
 
 const Homepage = () => {
-  const [userInput, setUserInput] = useState("");
+  const [userInput, setUserInput] = useState('');
   const [messages, setMessages] = useState(dummyMessages);
 
   const handleTextInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,11 +30,11 @@ const Homepage = () => {
     dummyMessages.push({
       id: Math.random(),
       content: userInput,
-      sender: "user",
+      sender: 'user',
       createdTime: Date.now(),
     });
     setMessages(dummyMessages);
-    setUserInput("");
+    setUserInput('');
   };
 
   return (
@@ -44,7 +44,7 @@ const Homepage = () => {
         <div className="border-2">
           Message Box
           <div className="border-2">
-            {messages.map((message) => (
+            {messages.map(message => (
               <Message key={message.id} message={message} />
             ))}
           </div>
