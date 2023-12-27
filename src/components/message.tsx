@@ -1,17 +1,10 @@
-import { IMessage } from "../interfaces/message";
+import {IMessage} from '../interfaces/message';
 export interface IMessageProps {
   message: IMessage;
 }
 
-export const Message = ({ message }: IMessageProps) => {
-  const color = message.sender === "user" ? "self-end" : "self-start";
+export const Message = ({message}: IMessageProps) => {
+  const color = message.sender === 'user' ? 'self-end' : 'self-start';
 
-  return (
-    <div className="flex flex-col">
-      <div className={`${color}	w-fit rounded-lg	 border px-2 py-1	`}>
-        {message.content}
-      </div>
-      {/* <div className={color}>{message.content}</div> */}
-    </div>
-  );
+  return <div className={`${color}	w-fit rounded-lg	 border px-2 py-1	`}>{message.content}</div>;
 };

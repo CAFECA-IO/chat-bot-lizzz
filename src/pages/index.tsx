@@ -38,12 +38,12 @@ const Homepage = () => {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center border-2 p-10">
-      <div className="w-full max-w-screen-xl border-2	">
+    <main className="flex min-h-screen items-center justify-center border-2 border-red-600">
+      <div className="w-full max-w-screen-sm border-2	">
         Container
         <div className="border-2">
           Message Box
-          <div className="border-2">
+          <div className="flex flex-col border-2 p-2">
             {messages.map(message => (
               <Message key={message.id} message={message} />
             ))}
