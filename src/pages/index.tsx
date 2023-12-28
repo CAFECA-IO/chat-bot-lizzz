@@ -38,37 +38,47 @@ const Homepage = () => {
     setUserInput('');
   };
 
+  const handleClearMessages = () => {
+    setMessages([]);
+  };
+
   return (
-    <main className="flex min-h-screen items-center justify-center border-2 border-red-600">
+    <main className="flex min-h-screen items-center justify-center bg-black	">
       {/* Container */}
-      <div className="w-full max-w-screen-sm border-2	">
-        <div className="flex items-end	">
-          <h1 className="mr-2 text-2xl">ChatBot</h1>
-          <p>Talk to AI chatbot about anything</p>
+      <div className="min-h-128 flex w-full max-w-screen-lg flex-col overflow-hidden rounded-2xl bg-white">
+        {/* Container Header */}
+        <div className="flex justify-between bg-sky-50 p-4">
+          <div className="flex items-center gap-4 	 ">
+            <h1 className="mr-2 text-2xl font-bold	">ChatBot</h1>
+            <p className="font-semibold text-orange-800		">Talk to AI chatbot about anything</p>
+          </div>
+          <Button onClick={handleClearMessages}>Clear</Button>
         </div>
 
         {/* Message Box */}
-        <div className="border-2">
-          <div className="flex flex-col border-2 p-2">
-            {messages.map(message => (
-              <Message key={message.id} message={message} />
-            ))}
-          </div>
+        <div className="flex max-h-96 grow flex-col overflow-auto px-6 pb-16 pt-8">
+          {messages.map(message => (
+            <Message key={message.id} message={message} />
+          ))}
         </div>
 
         {/* Input Box */}
-        <div className="flex border-2	">
-          <div className="w-5/6">
-            <input
-              className="w-full"
-              type="text"
-              value={userInput}
-              placeholder="Say something..."
-              onChange={handleTextInput}
-            />
-          </div>
-          <div className="w-1/6 text-center	">
-            <Button onClick={handleSendMessage}>Send</Button>
+        <div className="px-6 pb-8 ">
+          <div className="flex items-center justify-between gap-6 rounded-3xl border border-gray-400 px-3 py-4 ">
+            <div className="flex-1">
+              <input
+                className="size-full outline-none focus:outline-none"
+                type="text"
+                value={userInput}
+                placeholder="Say something..."
+                onChange={handleTextInput}
+              />
+            </div>
+            <div className=" text-center	">
+              <Button cx="text-amber-500" onClick={handleSendMessage}>
+                Send
+              </Button>
+            </div>
           </div>
         </div>
       </div>
