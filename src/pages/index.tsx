@@ -9,7 +9,12 @@ const dummyMessages = [
     sender: 'lizzz',
     createdTime: 723648168742,
   },
-  {id: 101, content: 'Hello', sender: 'user', createdTime: 723648168743},
+  {
+    id: 101,
+    content: 'Hello, if I do not commit package.json...',
+    sender: 'user',
+    createdTime: 723648168743,
+  },
   {
     id: 102,
     content: 'Hello, how are you?',
@@ -45,7 +50,7 @@ const Homepage = () => {
   return (
     <main className="flex min-h-screen items-center justify-center bg-black	">
       {/* Container */}
-      <div className="min-h-128 flex w-full max-w-screen-lg flex-col overflow-hidden rounded-2xl bg-white">
+      <div className="flex min-h-128 w-full max-w-screen-lg flex-col overflow-hidden rounded-2xl bg-white">
         {/* Container Header */}
         <div className="flex justify-between bg-sky-50 p-4">
           <div className="flex items-center gap-4 	 ">
