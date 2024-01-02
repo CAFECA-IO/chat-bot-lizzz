@@ -33,7 +33,7 @@ const Homepage = () => {
     setUserInput(value);
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     /**
      * ToDo: Implement handleSendMessage (20240102 - Liz)
      * 1. Add user message to Message Box
@@ -45,43 +45,61 @@ const Homepage = () => {
      * (Optional) 7. Scroll to bottom of Message Box (if needed)
      */
 
-    // InFo: step 1 (20240102 - Liz)
-    const message: IMessage = {
+    // InFo: step 1 - Add user message to Message Box (20240102 - Liz)
+
+    const userMessage: IMessage = {
       id: Math.random(),
       content: userInput,
       sender: 'user',
       createdTime: Date.now(),
     };
 
-    dummyMessages.push(message);
-    setMessages(dummyMessages);
+    setMessages(prevMessages => [...prevMessages, userMessage]);
 
-    // InFo: step 2 (20240102 - Liz)
+    // InFo: step 2 - Add ... message to Message Box (20240102 - Liz)
 
-    const message2: IMessage = {
+    const pendingMessage: IMessage = {
       id: Math.random(),
       content: '...',
       sender: 'lizzz',
       createdTime: Date.now(),
     };
 
-    dummyMessages.push(message2);
-    setMessages(dummyMessages);
+    setMessages(prevMessages => [...prevMessages, pendingMessage]);
 
-    // InFo: step 3 (20240102 - Liz)
+    // InFo: step 3 - Send user message to backend (20240102 - Liz)
 
-    // InFo: step 4 (20240102 - Liz)
+    try {
+      const response = await fetch('/api/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userInput }),
+      });
 
-    // InFo: step 5 (20240102 - Liz)
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.statusText}`);
+      }
 
-    setTimeout(() => {
-      message2.content = '999';
-      dummyMessages.pop();
-      dummyMessages.push(message2);
-      setMessages(dummyMessages);
-    }, 1000);
+      // InFo: step 4 - Get response from backend (20240102 - Liz)
 
-    // InFo: step 6 (20240102 - Liz)
+      const result: IMessage = await response.json();
+      result.sender = 'lizzz';
+
+      // InFo: step 5 - Update response to Message Box (20240102 - Liz)
+
+      setMessages(prevMessages => {
+        const updatedMessages = [...prevMessages];
+        updatedMessages.pop();
+        updatedMessages.push(result);
+        return updatedMessages;
+      });
+    } catch (error) {
+      alert({ error });
+    }
+
+    // InFo: step 6 - Clear user input (20240102 - Liz)
     setUserInput('');
   };
 
