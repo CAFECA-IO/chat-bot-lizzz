@@ -12,7 +12,7 @@ const dummyMessages = [
   },
   {
     id: 101,
-    content: 'Hello, if I do not commit package.json...',
+    content: 'Hi!!!',
     sender: 'user',
     createdTime: 723648168743,
   },
@@ -122,7 +122,7 @@ const Homepage = () => {
               />
             </div>
             <div className=" text-center	">
-              <Button cx="text-amber-500" onClick={handleSendMessage}>
+              <Button className="text-amber-500" onClick={handleSendMessage}>
                 Send
               </Button>
             </div>

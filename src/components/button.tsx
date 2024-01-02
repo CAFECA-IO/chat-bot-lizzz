@@ -1,19 +1,9 @@
 // components/Button.tsx
 
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 
-interface ButtonProps {
-  onClick: () => void;
-  children: React.ReactNode;
-  cx?: string; // other classNames
-}
-
-const Button: React.FC<ButtonProps> = ({ onClick, children, cx }) => {
-  return (
-    <button className={cx} onClick={onClick}>
-      {children}
-    </button>
-  );
+const Button: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = props => {
+  return <button {...props}>{props.children}</button>;
 };
 
 export default Button;
