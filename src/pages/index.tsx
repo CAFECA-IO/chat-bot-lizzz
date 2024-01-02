@@ -1,6 +1,7 @@
 import Message from '../components/message';
 import Button from '../components/button';
-import {useState} from 'react';
+import { useState } from 'react';
+import { IMessage } from '../interfaces/message';
 
 const dummyMessages = [
   {
@@ -33,13 +34,54 @@ const Homepage = () => {
   };
 
   const handleSendMessage = () => {
-    dummyMessages.push({
+    /**
+     * ToDo: Implement handleSendMessage (20240102 - Liz)
+     * 1. Add user message to Message Box
+     * 2. Add ... message to Message Box
+     * 3. Send user message to backend
+     * 4. Get response from backend
+     * 5. Update response to Message Box
+     * 6. Clear user input
+     * (Optional) 7. Scroll to bottom of Message Box (if needed)
+     */
+
+    // InFo: step 1 (20240102 - Liz)
+    const message: IMessage = {
       id: Math.random(),
       content: userInput,
       sender: 'user',
       createdTime: Date.now(),
-    });
+    };
+
+    dummyMessages.push(message);
     setMessages(dummyMessages);
+
+    // InFo: step 2 (20240102 - Liz)
+
+    const message2: IMessage = {
+      id: Math.random(),
+      content: '...',
+      sender: 'lizzz',
+      createdTime: Date.now(),
+    };
+
+    dummyMessages.push(message2);
+    setMessages(dummyMessages);
+
+    // InFo: step 3 (20240102 - Liz)
+
+    // InFo: step 4 (20240102 - Liz)
+
+    // InFo: step 5 (20240102 - Liz)
+
+    setTimeout(() => {
+      message2.content = '999';
+      dummyMessages.pop();
+      dummyMessages.push(message2);
+      setMessages(dummyMessages);
+    }, 1000);
+
+    // InFo: step 6 (20240102 - Liz)
     setUserInput('');
   };
 
