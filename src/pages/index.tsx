@@ -2,6 +2,7 @@ import Message from '../components/message';
 import Button from '../components/button';
 import { useState } from 'react';
 import { IMessage } from '../interfaces/message';
+import getBotResponse from '../services/chatgpt_service';
 
 const dummyMessages = [
   {
@@ -69,38 +70,34 @@ const Homepage = () => {
 
     // InFo: step 3 - Send user message to backend (20240102 - Liz)
 
-    try {
-      const response = await fetch('/api/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userInput }),
-      });
+    const response: IMessage = await getBotResponse(userInput);
 
-      if (!response.ok) {
-        throw new Error(`API request failed: ${response.statusText}`);
-      }
+    // InFo: step 4 - Get response from backend (20240102 - Liz)
 
-      // InFo: step 4 - Get response from backend (20240102 - Liz)
+    const responseMessage: IMessage = {
+      id: response.id,
+      content: response.content,
+      sender: 'lizzz',
+      createdTime: response.createdTime,
+    };
 
-      const result: IMessage = await response.json();
-      result.sender = 'lizzz';
+    // InFo: step 5 - Update response to Message Box (20240102 - Liz)
 
-      // InFo: step 5 - Update response to Message Box (20240102 - Liz)
-
-      setMessages(prevMessages => {
-        const updatedMessages = [...prevMessages];
-        updatedMessages.pop();
-        updatedMessages.push(result);
-        return updatedMessages;
-      });
-    } catch (error) {
-      alert({ error });
-    }
+    setMessages(prevMessages => {
+      const updatedMessages = [...prevMessages];
+      updatedMessages.pop();
+      updatedMessages.push(responseMessage);
+      return updatedMessages;
+    });
 
     // InFo: step 6 - Clear user input (20240102 - Liz)
     setUserInput('');
+  };
+
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
   };
 
   const handleClearMessages = () => {
@@ -137,6 +134,7 @@ const Homepage = () => {
                 value={userInput}
                 placeholder="Say something..."
                 onChange={handleTextInput}
+                onKeyUp={handleKeyUp}
               />
             </div>
             <div className=" text-center	">
