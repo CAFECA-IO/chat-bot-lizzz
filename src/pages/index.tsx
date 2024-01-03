@@ -38,11 +38,11 @@ const Homepage = () => {
     /**
      * ToDo: Implement handleSendMessage (20240102 - Liz)
      * 1. Add user message to Message Box
-     * 2. Add ... message to Message Box
-     * 3. Send user message to backend
-     * 4. Get response from backend
-     * 5. Update response to Message Box
-     * 6. Clear user input
+     * 2. Clear user input
+     * 3. Add ... message to Message Box
+     * 4. Send user message to backend
+     * 5. Get response from backend
+     * 6. Update response to Message Box
      * (Optional) 7. Scroll to bottom of Message Box (if needed)
      */
 
@@ -57,7 +57,10 @@ const Homepage = () => {
 
     setMessages(prevMessages => [...prevMessages, userMessage]);
 
-    // InFo: step 2 - Add ... message to Message Box (20240102 - Liz)
+    // InFo: step 2 - Clear user input (20240102 - Liz)
+    setUserInput('');
+
+    // InFo: step 3 - Add ... message to Message Box (20240102 - Liz)
 
     const pendingMessage: IMessage = {
       id: Math.random(),
@@ -68,11 +71,11 @@ const Homepage = () => {
 
     setMessages(prevMessages => [...prevMessages, pendingMessage]);
 
-    // InFo: step 3 - Send user message to backend (20240102 - Liz)
+    // InFo: step 4 - Send user message to backend (20240102 - Liz)
 
     const response: IMessage = await getBotResponse(userInput);
 
-    // InFo: step 4 - Get response from backend (20240102 - Liz)
+    // InFo: step 5 - Get response from backend (20240102 - Liz)
 
     const responseMessage: IMessage = {
       id: response.id,
@@ -81,7 +84,7 @@ const Homepage = () => {
       createdTime: response.createdTime,
     };
 
-    // InFo: step 5 - Update response to Message Box (20240102 - Liz)
+    // InFo: step 6 - Update response to Message Box (20240102 - Liz)
 
     setMessages(prevMessages => {
       const updatedMessages = [...prevMessages];
@@ -89,9 +92,6 @@ const Homepage = () => {
       updatedMessages.push(responseMessage);
       return updatedMessages;
     });
-
-    // InFo: step 6 - Clear user input (20240102 - Liz)
-    setUserInput('');
   };
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
