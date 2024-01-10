@@ -1,14 +1,13 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 export default {
-  content: [],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
       minHeight: {
-        128: '32rem',
+        '128': '32rem',
       },
     },
   },
   plugins: [],
-} satisfies Config
-
+} satisfies Config;

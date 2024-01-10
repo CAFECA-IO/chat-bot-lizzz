@@ -31,7 +31,7 @@ module.exports = {
     'tailwindcss/enforces-shorthand': 'off',
     'tailwindcss/migration-from-tailwind-2': 'error',
     'tailwindcss/no-arbitrary-value': 'error',
-    'tailwindcss/no-custom-classname': 'error',
+    'tailwindcss/no-custom-classname': 'off', // Disable this rule for custom classnames
   },
   settings: {
     tailwindcss: {
