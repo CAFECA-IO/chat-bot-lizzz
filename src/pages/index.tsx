@@ -4,30 +4,9 @@ import { useState } from 'react';
 import { IMessage } from '../interfaces/message';
 import getBotResponse from '../services/chatgpt_service';
 
-const dummyMessages = [
-  {
-    id: 100,
-    content: 'Hello, I am a chat bot. My name is Lizzz.',
-    sender: 'lizzz',
-    createdTime: 723648168742,
-  },
-  {
-    id: 101,
-    content: 'Hi!!!',
-    sender: 'user',
-    createdTime: 723648168743,
-  },
-  {
-    id: 102,
-    content: 'Hello, how are you?',
-    sender: 'lizzz',
-    createdTime: 723648168744,
-  },
-];
-
 const Homepage = () => {
   const [userInput, setUserInput] = useState('');
-  const [messages, setMessages] = useState(dummyMessages);
+  const [messages, setMessages] = useState([] as IMessage[]);
 
   const handleTextInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
