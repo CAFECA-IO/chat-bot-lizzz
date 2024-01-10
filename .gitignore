@@ -47,6 +47,7 @@ web_modules/
 
 # TypeScript cache
 *.tsbuildinfo
+next-env.d.ts
 
 # Optional npm cache directory
 .npm
@@ -128,3 +129,11 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+
+# package manager cache
+package-lock.json
+yarn.lock
