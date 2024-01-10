@@ -30,7 +30,7 @@ module.exports = {
     'tailwindcss/enforces-negative-arbitrary-values': 'error',
     'tailwindcss/enforces-shorthand': 'off',
     'tailwindcss/migration-from-tailwind-2': 'error',
-    'tailwindcss/no-arbitrary-value': 'error',
+    'tailwindcss/no-arbitrary-value': 'off', // Disable this rule for arbitrary values
     'tailwindcss/no-custom-classname': 'off', // Disable this rule for custom classnames
   },
   settings: {
