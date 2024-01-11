@@ -55,11 +55,6 @@ const Homepage = () => {
       content: message.content,
     }));
 
-    // eslint-disable-next-line no-console
-    console.log({ liteMessages });
-    // eslint-disable-next-line no-console
-    console.log({ temMessages });
-
     setMessages(prevMessages => [...prevMessages, pendingMessage]);
 
     // InFo: step 4 - Send user message to backend (20240102 - Liz)

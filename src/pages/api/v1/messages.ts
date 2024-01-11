@@ -30,8 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     };
     try {
       const response = await axios.post(apiUrl, requestBody, { headers });
-      // eslint-disable-next-line no-console
-      console.log({ response });
+
       // InFo: deal with response (20240111 - Liz)
       const id = Math.random();
       const createdTime = Date.now();
