@@ -1,7 +1,7 @@
 import Message from '../components/message';
 import Button from '../components/button';
 import { useState } from 'react';
-import { IMessage } from '../interfaces/message';
+import { IMessage, ILiteMessage } from '../interfaces/message';
 import getBotResponse from '../services/chatgpt_service';
 
 const Homepage = () => {
@@ -30,7 +30,7 @@ const Homepage = () => {
     const userMessage: IMessage = {
       id: Math.random(),
       content: userInput,
-      sender: 'user',
+      role: 'user',
       createdTime: Date.now(),
     };
 
@@ -44,22 +44,34 @@ const Homepage = () => {
     const pendingMessage: IMessage = {
       id: Math.random(),
       content: '...',
-      sender: 'lizzz',
+      role: 'assistant',
       createdTime: Date.now(),
     };
+
+    const temMessages: IMessage[] = [...messages, userMessage];
+
+    const liteMessages: ILiteMessage[] = temMessages.map(message => ({
+      role: message.role,
+      content: message.content,
+    }));
+
+    // eslint-disable-next-line no-console
+    console.log({ liteMessages });
+    // eslint-disable-next-line no-console
+    console.log({ temMessages });
 
     setMessages(prevMessages => [...prevMessages, pendingMessage]);
 
     // InFo: step 4 - Send user message to backend (20240102 - Liz)
 
-    const response: IMessage = await getBotResponse(userInput);
+    const response: IMessage = await getBotResponse(liteMessages);
 
     // InFo: step 5 - Get response from backend (20240102 - Liz)
 
     const responseMessage: IMessage = {
       id: response.id,
       content: response.content,
-      sender: 'lizzz',
+      role: 'assistant',
       createdTime: response.createdTime,
     };
 

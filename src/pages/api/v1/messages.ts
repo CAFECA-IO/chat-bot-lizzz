@@ -1,8 +1,9 @@
 import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { ILiteMessage } from '../../../interfaces/message';
 
 type RequestData = {
-  userInput: string;
+  messages: ILiteMessage[];
 };
 
 type ResponseData = {
@@ -25,10 +26,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     };
     const requestBody = {
       model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: requestData.userInput }],
+      messages: requestData.messages,
     };
     try {
       const response = await axios.post(apiUrl, requestBody, { headers });
+      // eslint-disable-next-line no-console
+      console.log({ response });
+      // InFo: deal with response (20240111 - Liz)
       const id = Math.random();
       const createdTime = Date.now();
       const result: ResponseData = {

@@ -4,7 +4,7 @@ export interface IMessageProps {
 }
 
 const Message = ({ message }: IMessageProps) => {
-  const position = message.sender === 'user' ? 'self-end' : 'self-start';
+  const position = message.role === 'user' ? 'self-end' : 'self-start';
 
   return (
     <div className={`${position}	my-1 w-fit max-w-[90%] rounded-lg bg-zinc-200 px-2 py-1`}>
