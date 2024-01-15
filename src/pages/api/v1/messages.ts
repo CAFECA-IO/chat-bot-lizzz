@@ -20,12 +20,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     // InFo: Add code to call the chatbot API (20240102 - Liz)
     const apiKey = process.env.OPENAI_API_KEY;
     const apiUrl = 'https://api.openai.com/v1/chat/completions';
+    const aiModel = 'gpt-3.5-turbo';
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${apiKey}`,
     };
     const requestBody = {
-      model: 'gpt-3.5-turbo',
+      model: aiModel,
       messages: requestData.messages,
     };
     try {
