@@ -18,6 +18,12 @@ const Homepage = () => {
     setUserInput(value);
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (isButtonDisabled) return;
+    handleSendMessage();
+  };
+
   const handleSendMessage = async () => {
     /**
      * ToDo: Implement handleSendMessage (20240102 - Liz)
@@ -85,10 +91,6 @@ const Homepage = () => {
     });
   };
 
-  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    e.key === 'Enter' && !isButtonDisabled && handleSendMessage();
-  };
-
   const handleClearMessages = () => {
     setMessages([]);
   };
@@ -115,7 +117,10 @@ const Homepage = () => {
 
         {/* Input Box */}
         <div className="px-6 pb-8 ">
-          <div className="flex items-center justify-between gap-6 rounded-3xl border border-gray-400 px-4 py-1">
+          <form
+            onSubmit={handleSubmit}
+            className="flex items-center justify-between gap-6 rounded-3xl border border-gray-400 px-4 py-1"
+          >
             <div className="flex-auto	">
               <input
                 className="w-full leading-loose outline-none focus:outline-none"
@@ -123,10 +128,9 @@ const Homepage = () => {
                 value={userInput}
                 placeholder="Say something..."
                 onChange={handleTextInput}
-                onKeyUp={handleKeyUp}
               />
             </div>
-            <Button className="p-2" onClick={handleSendMessage} disabled={isButtonDisabled}>
+            <Button type="submit" className="p-2" disabled={isButtonDisabled}>
               <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 512 512">
                 <path
                   fill="#ff8f0f"
@@ -134,7 +138,7 @@ const Homepage = () => {
                 />
               </svg>
             </Button>
-          </div>
+          </form>
         </div>
       </div>
     </main>
