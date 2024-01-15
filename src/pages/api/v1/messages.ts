@@ -32,10 +32,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       const response = await axios.post(apiUrl, requestBody, { headers });
 
       // InFo: deal with response (20240111 - Liz)
-      const id = Math.random();
+      const randomNum = Math.random();
       const createdTime = Date.now();
       const result: ResponseData = {
-        id,
+        id: randomNum,
         content: response.data.choices[0].message.content,
         createdTime,
       };

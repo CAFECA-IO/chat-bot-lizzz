@@ -26,9 +26,9 @@ const Homepage = () => {
      */
 
     // InFo: step 1 - Add user message to Message Box (20240102 - Liz)
-
+    const randomNum1 = Math.random();
     const userMessage: IMessage = {
-      id: Math.random(),
+      id: randomNum1,
       content: userInput,
       role: 'user',
       createdTime: Date.now(),
@@ -40,9 +40,9 @@ const Homepage = () => {
     setUserInput('');
 
     // InFo: step 3 - Add ... message to Message Box (20240102 - Liz)
-
+    const randomNum2 = Math.random();
     const pendingMessage: IMessage = {
-      id: Math.random(),
+      id: randomNum2,
       content: '...',
       role: 'assistant',
       createdTime: Date.now(),
