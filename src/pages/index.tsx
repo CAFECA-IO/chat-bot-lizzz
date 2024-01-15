@@ -38,11 +38,13 @@ const Homepage = () => {
 
     // InFo: step 1 - Add user message to Message Box (20240102 - Liz)
     const randomNum1 = Math.random();
+    const roleUser = 'user';
+    let nowDate = Date.now();
     const userMessage: IMessage = {
       id: randomNum1,
       content: userInput,
-      role: 'user',
-      createdTime: Date.now(),
+      role: roleUser,
+      createdTime: nowDate,
     };
 
     setMessages(prevMessages => [...prevMessages, userMessage]);
@@ -52,11 +54,14 @@ const Homepage = () => {
 
     // InFo: step 3 - Add ... message to Message Box (20240102 - Liz)
     const randomNum2 = Math.random();
+    const pendingMsg = '...';
+    const roleAssistant = 'assistant';
+    nowDate = Date.now();
     const pendingMessage: IMessage = {
       id: randomNum2,
-      content: '...',
-      role: 'assistant',
-      createdTime: Date.now(),
+      content: pendingMsg,
+      role: roleAssistant,
+      createdTime: nowDate,
     };
 
     const temMessages: IMessage[] = [...messages, userMessage];
@@ -77,7 +82,7 @@ const Homepage = () => {
     const responseMessage: IMessage = {
       id: response.id,
       content: response.content,
-      role: 'assistant',
+      role: roleAssistant,
       createdTime: response.createdTime,
     };
 
