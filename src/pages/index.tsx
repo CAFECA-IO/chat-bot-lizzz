@@ -86,9 +86,7 @@ const Homepage = () => {
   };
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSendMessage();
-    }
+    e.key === 'Enter' && !isButtonDisabled && handleSendMessage();
   };
 
   const handleClearMessages = () => {
