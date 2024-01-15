@@ -1,12 +1,17 @@
 import Message from '../components/message';
 import Button from '../components/button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IMessage, ILiteMessage } from '../interfaces/message';
 import getBotResponse from '../services/chatgpt_service';
 
 const Homepage = () => {
   const [userInput, setUserInput] = useState('');
   const [messages, setMessages] = useState([] as IMessage[]);
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    setButtonDisabled(userInput.trim() === '');
+  }, [userInput]);
 
   const handleTextInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -123,7 +128,7 @@ const Homepage = () => {
                 onKeyUp={handleKeyUp}
               />
             </div>
-            <Button className="p-2" onClick={handleSendMessage}>
+            <Button className="p-2" onClick={handleSendMessage} disabled={isButtonDisabled}>
               <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 512 512">
                 <path
                   fill="#ff8f0f"
