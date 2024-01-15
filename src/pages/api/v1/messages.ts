@@ -1,8 +1,9 @@
 import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { ILiteMessage } from '../../../interfaces/message';
 
 type RequestData = {
-  userInput: string;
+  messages: ILiteMessage[];
 };
 
 type ResponseData = {
@@ -19,20 +20,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     // InFo: Add code to call the chatbot API (20240102 - Liz)
     const apiKey = process.env.OPENAI_API_KEY;
     const apiUrl = 'https://api.openai.com/v1/chat/completions';
+    const aiModel = 'gpt-3.5-turbo';
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${apiKey}`,
     };
     const requestBody = {
-      model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: requestData.userInput }],
+      model: aiModel,
+      messages: requestData.messages,
     };
     try {
       const response = await axios.post(apiUrl, requestBody, { headers });
-      const id = Math.random();
+
+      // InFo: deal with response (20240111 - Liz)
+      const randomNum = Math.random();
       const createdTime = Date.now();
       const result: ResponseData = {
-        id,
+        id: randomNum,
         content: response.data.choices[0].message.content,
         createdTime,
       };

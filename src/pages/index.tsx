@@ -1,16 +1,27 @@
 import Message from '../components/message';
 import Button from '../components/button';
-import { useState } from 'react';
-import { IMessage } from '../interfaces/message';
+import { useEffect, useState } from 'react';
+import { IMessage, ILiteMessage } from '../interfaces/message';
 import getBotResponse from '../services/chatgpt_service';
 
 const Homepage = () => {
   const [userInput, setUserInput] = useState('');
   const [messages, setMessages] = useState([] as IMessage[]);
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    setButtonDisabled(userInput.trim() === '');
+  }, [userInput]);
 
   const handleTextInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setUserInput(value);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (isButtonDisabled) return;
+    handleSendMessage();
   };
 
   const handleSendMessage = async () => {
@@ -26,12 +37,14 @@ const Homepage = () => {
      */
 
     // InFo: step 1 - Add user message to Message Box (20240102 - Liz)
-
+    const randomNum1 = Math.random();
+    const roleUser = 'user';
+    let nowDate = Date.now();
     const userMessage: IMessage = {
-      id: Math.random(),
+      id: randomNum1,
       content: userInput,
-      sender: 'user',
-      createdTime: Date.now(),
+      role: roleUser,
+      createdTime: nowDate,
     };
 
     setMessages(prevMessages => [...prevMessages, userMessage]);
@@ -40,26 +53,36 @@ const Homepage = () => {
     setUserInput('');
 
     // InFo: step 3 - Add ... message to Message Box (20240102 - Liz)
-
+    const randomNum2 = Math.random();
+    const pendingMsg = '...';
+    const roleAssistant = 'assistant';
+    nowDate = Date.now();
     const pendingMessage: IMessage = {
-      id: Math.random(),
-      content: '...',
-      sender: 'lizzz',
-      createdTime: Date.now(),
+      id: randomNum2,
+      content: pendingMsg,
+      role: roleAssistant,
+      createdTime: nowDate,
     };
+
+    const temMessages: IMessage[] = [...messages, userMessage];
+
+    const liteMessages: ILiteMessage[] = temMessages.map(message => ({
+      role: message.role,
+      content: message.content,
+    }));
 
     setMessages(prevMessages => [...prevMessages, pendingMessage]);
 
     // InFo: step 4 - Send user message to backend (20240102 - Liz)
 
-    const response: IMessage = await getBotResponse(userInput);
+    const response: IMessage = await getBotResponse(liteMessages);
 
     // InFo: step 5 - Get response from backend (20240102 - Liz)
 
     const responseMessage: IMessage = {
       id: response.id,
       content: response.content,
-      sender: 'lizzz',
+      role: roleAssistant,
       createdTime: response.createdTime,
     };
 
@@ -71,12 +94,6 @@ const Homepage = () => {
       updatedMessages.push(responseMessage);
       return updatedMessages;
     });
-  };
-
-  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSendMessage();
-    }
   };
 
   const handleClearMessages = () => {
@@ -105,7 +122,10 @@ const Homepage = () => {
 
         {/* Input Box */}
         <div className="px-6 pb-8 ">
-          <div className="flex items-center justify-between gap-6 rounded-3xl border border-gray-400 px-4 py-1">
+          <form
+            onSubmit={handleSubmit}
+            className="flex items-center justify-between gap-6 rounded-3xl border border-gray-400 px-4 py-1"
+          >
             <div className="flex-auto	">
               <input
                 className="w-full leading-loose outline-none focus:outline-none"
@@ -113,10 +133,9 @@ const Homepage = () => {
                 value={userInput}
                 placeholder="Say something..."
                 onChange={handleTextInput}
-                onKeyUp={handleKeyUp}
               />
             </div>
-            <Button className="p-2" onClick={handleSendMessage}>
+            <Button type="submit" className="p-2" disabled={isButtonDisabled}>
               <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 512 512">
                 <path
                   fill="#ff8f0f"
@@ -124,7 +143,7 @@ const Homepage = () => {
                 />
               </svg>
             </Button>
-          </div>
+          </form>
         </div>
       </div>
     </main>
